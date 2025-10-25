@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communauté - ASAS RDC</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+<!-- Scripts Supabase -->
+<script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+<script src="database.js"></script>
+<script src="realtime.js"></script>
+    <nav class="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-primary">ASAS RDC</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-black">
+                <a href="index.html" class="text-black hover:text-primary dark:hover:text-primary">Accueil</a>
+<a href="about.html" class="text-black hover:text-primary dark:hover:text-primary">À Propos</a>
+                <a href="communaute.html" class="text-primary font-medium">Communauté</a>
+                <a href="services.html" class="text-black hover:text-primary dark:hover:text-primary">Services</a>
+                <a href="contact.html" class="text-black hover:text-primary dark:hover:text-primary">Contact</a>
+                <a href="temoignages.html" class="text-black hover:text-primary dark:hover:text-primary">Témoignages</a>
+                <a href="professionnels.html" class="text-black hover:text-primary dark:hover:text-primary">Professionnels</a>
+</div>
+<button class="md:hidden" id="menu-toggle">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Communauté ASAS</h1>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold mb-4">Directives de la Communauté</h2>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i data-feather="check-circle" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                        <span>Respectez tous les membres de la communauté</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i data-feather="check-circle" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                        <span>Ne partagez pas d'informations personnelles</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i data-feather="check-circle" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                        <span>Évitez le langage déclencheur ou explicite</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i data-feather="check-circle" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                        <span>Ne donnez pas de conseils médicaux ou professionnels</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-primary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">1,200+</p>
+                    <p>Membres</p>
+                </div>
+                <div class="bg-secondary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">450+</p>
+                    <p>Discussions</p>
+                </div>
+                <div class="bg-primary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">24/7</p>
+                    <p>Support</p>
+                </div>
+                <div class="bg-secondary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">15+</p>
+                    <p>Professionnels</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Publications Communautaires</h2>
+                <button id="new-post-btn" class="bg-primary text-white px-4 py-2 rounded-lg flex items-center">
+                    <i data-feather="plus" class="mr-2 w-4 h-4"></i>
+                    Nouvelle Publication
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                     <div class="flex items-center mb-4">
+                         <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
+                             <i data-feather="heart" class="text-primary w-6 h-6"></i>
+                         </div>
+                         <h3 class="text-xl font-bold">Témoignages</h3>
+                     </div>
+                     <p class="text-sm mb-4">Partagez vos histoires de guérison et d'espoir</p>
+                     <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                         <span>Partagez vos expériences</span>
+                         <span>❤️</span>
+                     </div>
+                 </div>
+
+                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                     <div class="flex items-center mb-4">
+                         <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                             <i data-feather="play-circle" class="text-secondary w-6 h-6"></i>
+                         </div>
+                         <h3 class="text-xl font-bold">Vidéos Motivation</h3>
+                     </div>
+                     <p class="text-sm mb-4">Partagez des vidéos inspirantes et motivantes</p>
+                     <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                         <span>📹 Contenu visuel</span>
+                         <span>▶️</span>
+                     </div>
+                 </div>
+
+                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                     <div class="flex items-center mb-4">
+                         <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
+                             <i data-feather="image" class="text-primary w-6 h-6"></i>
+                         </div>
+                         <h3 class="text-xl font-bold">Photos & Images</h3>
+                     </div>
+                     <p class="text-sm mb-4">Partagez des photos qui racontent votre histoire</p>
+                     <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                         <span>📸 Moments capturés</span>
+                         <span>🖼️</span>
+                     </div>
+                 </div>
+
+                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                     <div class="flex items-center mb-4">
+                         <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                             <i data-feather="quote" class="text-secondary w-6 h-6"></i>
+                         </div>
+                         <h3 class="text-xl font-bold">Citations Inspirantes</h3>
+                     </div>
+                     <p class="text-sm mb-4">Partagez des citations qui vous ont aidé</p>
+                     <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                         <span>💬 Mots puissants</span>
+                         <span>✨</span>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold mb-6">Discussions Récentes</h2>
+            <div class="space-y-4" id="recent-posts">
+                <!-- Posts will be loaded here via JavaScript -->
+                <div class="text-center py-8">
+                    <i data-feather="loader" class="animate-spin w-8 h-8 mx-auto text-primary"></i>
+                    <p>Chargement des discussions...</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-6 mt-12">Témoignages Réçents</h2>
+            <div class="space-y-4" id="recent-testimonies">
+                <!-- Témoignages will be loaded here via JavaScript -->
+                <div class="text-center py-8">
+                    <i data-feather="loader" class="animate-spin w-8 h-8 mx-auto text-primary"></i>
+                    <p>Chargement des témoignages...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- New Post Modal -->
+    <div id="new-post-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Nouvelle Publication</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form id="post-form">
+                <div class="mb-4">
+                    <label for="post-type" class="block mb-2 font-medium">Type de publication</label>
+                    <select id="post-type" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        <option value="">Sélectionnez un type</option>
+                        <option value="text">📝 Texte seulement</option>
+                        <option value="image">📸 Image</option>
+                        <option value="video">📹 Vidéo</option>
+                        <option value="quote">💬 Citation</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="post-title" class="block mb-2 font-medium">Titre (optionnel)</label>
+                    <input type="text" id="post-title" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" placeholder="Donnez un titre à votre publication">
+                </div>
+                <div class="mb-4" id="media-url-container" style="display: none;">
+                    <label for="media-url" class="block mb-2 font-medium">URL du média</label>
+                    <input type="url" id="media-url" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" placeholder="https://exemple.com/image.jpg ou https://youtube.com/...">
+                    <p class="text-sm text-gray-500 mt-1">Pour YouTube, utilisez l'URL complète de la vidéo</p>
+                </div>
+                <div class="mb-4" id="media-file-container" style="display: none;">
+                    <label for="media-file" class="block mb-2 font-medium">Sélectionner un fichier</label>
+                    <input type="file" id="media-file" accept="image/*,video/*" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+                    <p class="text-sm text-gray-500 mt-1">Formats acceptés: JPG, PNG, GIF, MP4, MOV (max 10MB)</p>
+                    <div id="file-preview" class="mt-2 hidden">
+                        <img id="image-preview" class="max-w-full max-h-48 rounded-lg hidden">
+                        <video id="video-preview" class="max-w-full max-h-48 rounded-lg hidden" controls></video>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="post-content" class="block mb-2 font-medium">Contenu</label>
+                    <textarea id="post-content" rows="4" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required placeholder="Partagez votre message..."></textarea>
+                </div>
+                <div class="mb-4" id="quote-preview" style="display: none;">
+                    <label class="block mb-2 font-medium">Aperçu de la citation</label>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border-l-4 border-primary">
+                        <p class="text-lg italic" id="quote-text">"</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">- Votre nom</p>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-post" class="px-4 py-2 border rounded-lg">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg">Publier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                        <span class="text-xl font-bold text-primary">ASAS RDC</span>
+                    </div>
+                    <p class="mt-2 text-sm">Prévention du Suicide en République Démocratique du Congo</p>
+                </div>
+                <div class="flex space-x-6">
+                        <a href="https://web.facebook.com/p/ASAS-RDC-100082903254023/?_rdc=1&_rdr#" class="hover:text-primary"><i data-feather="facebook"></i></a>
+<a href="#" class="hover:text-primary"><i data-feather="twitter"></i></a>
+                    <a href="#" class="hover:text-primary"><i data-feather="instagram"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-sm text-center">
+                <p>© 2025 ASAS RDC. Tous droits réservés.</p>
+</div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.md\\:flex.space-x-6');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-none');
+            navLinks.classList.toggle('shadow-xl');
+            navLinks.classList.toggle('gap-4');
+});
+
+        // Modal functionality
+        const modal = document.getElementById('new-post-modal');
+        const newPostBtn = document.getElementById('new-post-btn');
+        const closeModal = document.getElementById('close-modal');
+        const cancelPost = document.getElementById('cancel-post');
+        const postTypeSelect = document.getElementById('post-type');
+        const mediaUrlContainer = document.getElementById('media-url-container');
+        const mediaFileContainer = document.getElementById('media-file-container');
+        const quotePreview = document.getElementById('quote-preview');
+
+        newPostBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+        cancelPost.addEventListener('click', () => modal.classList.add('hidden'));
+
+        // Dynamic form based on post type
+        postTypeSelect.addEventListener('change', function() {
+            const selectedType = this.value;
+            if (selectedType === 'image' || selectedType === 'video') {
+                mediaUrlContainer.style.display = 'none';
+                mediaFileContainer.style.display = 'block';
+                quotePreview.style.display = 'none';
+            } else if (selectedType === 'quote') {
+                mediaUrlContainer.style.display = 'none';
+                mediaFileContainer.style.display = 'none';
+                quotePreview.style.display = 'block';
+                updateQuotePreview();
+            } else {
+                mediaUrlContainer.style.display = 'none';
+                mediaFileContainer.style.display = 'none';
+                quotePreview.style.display = 'none';
+            }
+        });
+
+        // File preview functionality
+        document.getElementById('media-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const filePreview = document.getElementById('file-preview');
+                const imagePreview = document.getElementById('image-preview');
+                const videoPreview = document.getElementById('video-preview');
+
+                // Reset previews
+                imagePreview.classList.add('hidden');
+                videoPreview.classList.add('hidden');
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                        filePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.type.startsWith('video/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        videoPreview.src = e.target.result;
+                        videoPreview.classList.remove('hidden');
+                        filePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
+        // Update quote preview
+        document.getElementById('post-content').addEventListener('input', function() {
+            if (postTypeSelect.value === 'quote') {
+                updateQuotePreview();
+            }
+        });
+
+        function updateQuotePreview() {
+            const content = document.getElementById('post-content').value;
+            document.getElementById('quote-text').textContent = '"' + content + '"';
+        }
+
+        // Load posts from Supabase
+        async function loadPosts() {
+            try {
+                const { data: posts, error } = await window.supabase
+                    .from('posts')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+
+                const postsContainer = document.getElementById('recent-posts');
+                postsContainer.innerHTML = '';
+
+                if (posts.length === 0) {
+                    postsContainer.innerHTML = '<p class="text-center py-8">Aucune discussion pour le moment. Soyez le premier à poster!</p>';
+                    return;
+                }
+
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+
+                    let mediaContent = '';
+                    if (post.category === 'image' && post.media_url) {
+                        mediaContent = `<img src="${post.media_url}" alt="Image partagée" class="w-full max-h-96 object-cover rounded-lg mb-4">`;
+                    } else if (post.category === 'video' && post.media_url) {
+                        if (post.media_url.includes('youtube.com') || post.media_url.includes('youtu.be')) {
+                            const videoId = getYouTubeVideoId(post.media_url);
+                            mediaContent = `
+                                <div class="aspect-video mb-4">
+                                    <iframe src="https://www.youtube.com/embed/${videoId}" class="w-full h-full rounded-lg" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            `;
+                        } else {
+                            mediaContent = `
+                                <video controls class="w-full max-h-96 rounded-lg mb-4">
+                                    <source src="${post.media_url}" type="video/mp4">
+                                    Votre navigateur ne supporte pas la vidéo.
+                                </video>
+                            `;
+                        }
+                    } else if (post.category === 'quote') {
+                        mediaContent = `
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border-l-4 border-primary mb-4">
+                                <p class="text-lg italic">"${post.content}"</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">- Partagé anonymement</p>
+                            </div>
+                        `;
+                    }
+
+                    const contentDisplay = post.media_type === 'quote' ? '' : `<p class="text-sm mb-4">${post.content.substring(0, 200)}${post.content.length > 200 ? '...' : ''}</p>`;
+
+                    postElement.innerHTML = `
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-primary bg-opacity-20 text-primary px-2 py-1 rounded">${getMediaTypeIcon(post.category)} ${getMediaTypeName(post.category)}</span>
+                                ${post.title ? `<h3 class="text-lg font-bold">${post.title}</h3>` : ''}
+                            </div>
+                        </div>
+                        ${mediaContent}
+                        ${post.category === 'quote' ? '' : contentDisplay}
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                                <span>Par Anonyme</span>
+                                <span>${new Date(post.created_at).toLocaleDateString()}</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="flex items-center text-primary like-btn" data-id="${post.id}">
+                                    <i data-feather="heart" class="mr-1 w-4 h-4"></i>
+                                    <span>${post.likes_count || 0}</span>
+                                </button>
+                                <button class="flex items-center text-primary post-comment-btn" data-id="${post.id}">
+                                    <i data-feather="message-square" class="mr-1 w-4 h-4"></i>
+                                    <span>${post.comments_count || 0}</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 hidden post-comments-section" id="post-comments-${post.id}">
+                            <!-- Post comments will be loaded here -->
+                        </div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+
+                feather.replace();
+                setupPostEventListeners();
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('recent-posts').innerHTML = `
+                    <div class="text-center py-8 text-red-500">
+                        <i data-feather="alert-circle" class="w-8 h-8 mx-auto"></i>
+                        <p>Erreur de chargement des discussions. Veuillez réessayer.</p>
+                    </div>
+                `;
+                feather.replace();
+            }
+        }
+
+        // Load testimonies
+        async function loadTestimonies() {
+            try {
+                const { data: testimonies, error } = await window.supabase
+                    .from('testimonies')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+
+                const testimoniesContainer = document.getElementById('recent-testimonies');
+                testimoniesContainer.innerHTML = '';
+
+                if (testimonies.length === 0) {
+                    testimoniesContainer.innerHTML = '<p class="text-center py-8">Aucun témoignage pour le moment. Soyez le premier à partager!</p>';
+                    return;
+                }
+
+                testimonies.forEach(testimony => {
+                    const testimonyElement = document.createElement('div');
+                    testimonyElement.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+                    testimonyElement.innerHTML = `
+                        <div class="mb-4">
+                            <h3 class="text-lg font-bold">${testimony.title || 'Témoignage anonyme'}</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Publié le ${new Date(testimony.created_at).toLocaleDateString()}
+                            </p>
+                        </div>
+                        <p class="mb-4">${testimony.content.substring(0, 200)}${testimony.content.length > 200 ? '...' : ''}</p>
+                        <div class="flex justify-between items-center">
+                            <button class="text-primary flex items-center support-btn" data-id="${testimony.id}">
+                                <i data-feather="heart" class="mr-2 w-4 h-4"></i>
+                                <span>${testimony.support_count || 0} soutiens</span>
+                            </button>
+                            <div class="flex items-center space-x-3">
+                                <button class="flex items-center text-primary comment-btn" data-id="${testimony.id}">
+                                    <i data-feather="message-square" class="mr-1 w-4 h-4"></i>
+                                    Commenter
+                                </button>
+                                <a href="temoignages.html" class="text-primary text-sm hover:underline">Voir plus</a>
+                            </div>
+                        </div>
+                        <div class="mt-4 hidden comments-section" id="comments-${testimony.id}">
+                            <!-- Comments will be loaded here -->
+                        </div>
+                    `;
+                    testimoniesContainer.appendChild(testimonyElement);
+                });
+
+                feather.replace();
+                setupTestimonyEventListeners();
+            } catch (error) {
+                console.error('Error loading testimonies:', error);
+                document.getElementById('recent-testimonies').innerHTML = `
+                    <div class="text-center py-8 text-red-500">
+                        <i data-feather="alert-circle" class="w-8 h-8 mx-auto"></i>
+                        <p>Erreur de chargement des témoignages. Veuillez réessayer.</p>
+                    </div>
+                `;
+                feather.replace();
+            }
+        }
+
+        // Générer un identifiant unique pour l'utilisateur (basé sur sessionStorage)
+        function getUserIdentifier() {
+            let identifier = sessionStorage.getItem('user_identifier');
+            if (!identifier) {
+                identifier = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('user_identifier', identifier);
+            }
+            return identifier;
+        }
+
+        // Setup event listeners for posts
+        function setupPostEventListeners() {
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const postId = this.getAttribute('data-id');
+                    const userIdentifier = getUserIdentifier();
+                    const likeBtn = this;
+                    const likeCountSpan = this.querySelector('span');
+
+                    try {
+                        // Vérifier si l'utilisateur a déjà liké ce post
+                        const { data: existingLike, error: checkError } = await window.supabase
+                            .from('post_likes')
+                            .select('id')
+                            .eq('post_id', postId)
+                            .eq('user_identifier', userIdentifier)
+                            .single();
+
+                        if (checkError && checkError.code !== 'PGRST116') { // PGRST116 = no rows returned
+                            throw checkError;
+                        }
+
+                        if (existingLike) {
+                            // L'utilisateur a déjà liké, on retire le like
+                            const { error: deleteError } = await window.supabase
+                                .from('post_likes')
+                                .delete()
+                                .eq('post_id', postId)
+                                .eq('user_identifier', userIdentifier);
+
+                            if (deleteError) throw deleteError;
+
+                            // Mettre à jour le compteur
+                            const { error: updateError } = await window.supabase
+                                .from('posts')
+                                .update({ likes_count: Math.max(0, (parseInt(likeCountSpan.textContent) || 0) - 1) })
+                                .eq('id', postId);
+
+                            if (updateError) throw updateError;
+
+                            likeCountSpan.textContent = Math.max(0, parseInt(likeCountSpan.textContent) - 1);
+                            likeBtn.classList.remove('text-red-500');
+                        } else {
+                            // L'utilisateur n'a pas encore liké, on ajoute le like
+                            const { error: insertError } = await window.supabase
+                                .from('post_likes')
+                                .insert([{
+                                    post_id: postId,
+                                    user_identifier: userIdentifier
+                                }]);
+
+                            if (insertError) throw insertError;
+
+                            // Mettre à jour le compteur
+                            const { error: updateError } = await window.supabase
+                                .from('posts')
+                                .update({ likes_count: (parseInt(likeCountSpan.textContent) || 0) + 1 })
+                                .eq('id', postId);
+
+                            if (updateError) throw updateError;
+
+                            likeCountSpan.textContent = parseInt(likeCountSpan.textContent) + 1;
+                            likeBtn.classList.add('text-red-500');
+                        }
+
+                        feather.replace();
+                    } catch (error) {
+                        console.error('Error toggling like:', error);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.post-comment-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const postId = this.getAttribute('data-id');
+                    const commentsSection = document.getElementById(`post-comments-${postId}`);
+
+                    if (commentsSection.classList.contains('hidden')) {
+                        // Load comments
+                        try {
+                            const { data: comments, error } = await window.supabase
+                                .from('post_comments')
+                                .select('*')
+                                .eq('post_id', postId)
+                                .order('created_at', { ascending: false });
+
+                            if (error) throw error;
+
+                            commentsSection.innerHTML = `
+                                <div class="mb-4">
+                                    <textarea class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 mb-2" placeholder="Ajouter un commentaire..." id="post-comment-input-${postId}"></textarea>
+                                    <button class="bg-primary text-white px-3 py-1 rounded text-sm post-comment-submit" data-id="${postId}">Envoyer</button>
+                                </div>
+                                <div class="space-y-3" id="post-comments-list-${postId}">
+                                    ${comments.length === 0 ? '<p class="text-sm text-gray-500 dark:text-gray-400">Aucun commentaire pour le moment.</p>' :
+                                    comments.map(comment => `
+                                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                                            <p class="text-sm">${comment.content}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                ${new Date(comment.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+
+                            commentsSection.classList.remove('hidden');
+                            feather.replace();
+
+                            // Add event listener for new comment
+                            document.querySelector(`.post-comment-submit[data-id="${postId}"]`).addEventListener('click', async function() {
+                                const content = document.getElementById(`post-comment-input-${postId}`).value;
+                                if (!content.trim()) return;
+
+                                try {
+                                    const { data, error } = await window.supabase
+                                        .from('post_comments')
+                                        .insert([
+                                            {
+                                                post_id: postId,
+                                                content: content.trim(),
+                                                is_anonymous: true
+                                            }
+                                        ]);
+
+                                    if (error) throw error;
+
+                                    // Update comment count in database
+                                    await window.supabase
+                                        .from('posts')
+                                        .update({ comments_count: (parseInt(document.querySelector(`.post-comment-btn[data-id="${postId}"] span`).textContent) || 0) + 1 })
+                                        .eq('id', postId);
+
+                                    // Update UI
+                                    const commentBtn = document.querySelector(`.post-comment-btn[data-id="${postId}"] span`);
+                                    commentBtn.textContent = parseInt(commentBtn.textContent) + 1;
+
+                                    // Reload comments
+                                    const commentsList = document.getElementById(`post-comments-list-${postId}`);
+                                    const newComment = document.createElement('div');
+                                    newComment.className = 'bg-gray-100 dark:bg-gray-700 p-3 rounded-lg';
+                                    newComment.innerHTML = `
+                                        <p class="text-sm">${content}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            ${new Date().toLocaleDateString()}
+                                        </p>
+                                    `;
+                                    commentsList.prepend(newComment);
+                                    document.getElementById(`post-comment-input-${postId}`).value = '';
+                                } catch (error) {
+                                    console.error('Error adding comment:', error);
+                                }
+                            });
+                        } catch (error) {
+                            console.error('Error loading post comments:', error);
+                        }
+                    } else {
+                        commentsSection.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        // Setup event listeners for testimonies
+        function setupTestimonyEventListeners() {
+            document.querySelectorAll('.support-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const testimonyId = this.getAttribute('data-id');
+                    try {
+                        const { data, error } = await window.supabase
+                            .from('testimonies')
+                            .update({ support_count: (this.textContent.match(/\d+/)[0] || 0) + 1 })
+                            .eq('id', testimonyId);
+
+                        if (error) throw error;
+
+                        this.innerHTML = `<i data-feather="heart" class="mr-2 w-4 h-4"></i>
+                            <span>${parseInt(this.textContent.match(/\d+/)[0] || 0) + 1} soutiens</span>`;
+                        feather.replace();
+                    } catch (error) {
+                        console.error('Error supporting testimony:', error);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.comment-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const testimonyId = this.getAttribute('data-id');
+                    const commentsSection = document.getElementById(`comments-${testimonyId}`);
+
+                    if (commentsSection.classList.contains('hidden')) {
+                        // Load comments
+                        try {
+                            const { data: comments, error } = await window.supabase
+                                .from('comments')
+                                .select('*')
+                                .eq('testimony_id', testimonyId)
+                                .order('created_at', { ascending: false });
+
+                            if (error) throw error;
+
+                            commentsSection.innerHTML = `
+                                <div class="mb-4">
+                                    <textarea class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 mb-2" placeholder="Ajouter un commentaire..." id="comment-input-${testimonyId}"></textarea>
+                                    <button class="bg-primary text-white px-3 py-1 rounded text-sm comment-submit" data-id="${testimonyId}">Envoyer</button>
+                                </div>
+                                <div class="space-y-3" id="comments-list-${testimonyId}">
+                                    ${comments.length === 0 ? '<p class="text-sm text-gray-500 dark:text-gray-400">Aucun commentaire pour le moment.</p>' :
+                                    comments.map(comment => `
+                                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                                            <p class="text-sm">${comment.content}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                ${new Date(comment.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+
+                            commentsSection.classList.remove('hidden');
+                            feather.replace();
+
+                            // Add event listener for new comment
+                            document.querySelector(`.comment-submit[data-id="${testimonyId}"]`).addEventListener('click', async function() {
+                                const content = document.getElementById(`comment-input-${testimonyId}`).value;
+                                if (!content.trim()) return;
+
+                                try {
+                                    const { data, error } = await window.supabase
+                                        .from('comments')
+                                        .insert([
+                                            {
+                                                testimony_id: testimonyId,
+                                                content: content.trim(),
+                                                is_anonymous: true
+                                            }
+                                        ]);
+
+                                    if (error) throw error;
+
+                                    // Reload comments
+                                    const commentsList = document.getElementById(`comments-list-${testimonyId}`);
+                                    const newComment = document.createElement('div');
+                                    newComment.className = 'bg-gray-100 dark:bg-gray-700 p-3 rounded-lg';
+                                    newComment.innerHTML = `
+                                        <p class="text-sm">${content}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            ${new Date().toLocaleDateString()}
+                                        </p>
+                                    `;
+                                    commentsList.prepend(newComment);
+                                    document.getElementById(`comment-input-${testimonyId}`).value = '';
+                                } catch (error) {
+                                    console.error('Error adding comment:', error);
+                                }
+                            });
+                        } catch (error) {
+                            console.error('Error loading comments:', error);
+                        }
+                    } else {
+                        commentsSection.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'support': 'Soutien Émotionnel',
+                'stories': 'Histoires Personnelles',
+                'resources': 'Ressources'
+            };
+            return categories[category] || category;
+        }
+
+        function getMediaTypeIcon(type) {
+            const icons = {
+                'text': '📝',
+                'image': '📸',
+                'video': '📹',
+                'quote': '💬'
+            };
+            return icons[type] || '📝';
+        }
+
+        function getMediaTypeName(type) {
+            const names = {
+                'text': 'Texte',
+                'image': 'Image',
+                'video': 'Vidéo',
+                'quote': 'Citation'
+            };
+            return names[type] || 'Texte';
+        }
+
+        function getYouTubeVideoId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length == 11) ? match[2] : null;
+        }
+
+        // Submit new post
+        document.getElementById('post-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const postType = document.getElementById('post-type').value;
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            const mediaUrl = document.getElementById('media-url').value;
+            const mediaFile = document.getElementById('media-file').files[0];
+
+            if (!content.trim()) {
+                alert('Veuillez saisir le contenu de votre publication.');
+                return;
+            }
+
+            if ((postType === 'image' || postType === 'video') && !mediaFile && !mediaUrl) {
+                alert('Veuillez sélectionner un fichier ou fournir une URL.');
+                return;
+            }
+
+            try {
+                let finalMediaUrl = mediaUrl;
+
+                // Upload file to Supabase Storage if a file is selected
+                if (mediaFile) {
+                    const fileExt = mediaFile.name.split('.').pop();
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                    const filePath = `posts/${fileName}`;
+
+                    const { data: uploadData, error: uploadError } = await window.supabase.storage
+                        .from('media')
+                        .upload(filePath, mediaFile);
+
+                    if (uploadError) throw uploadError;
+
+                    // Get public URL
+                    const { data: urlData } = window.supabase.storage
+                        .from('media')
+                        .getPublicUrl(filePath);
+
+                    finalMediaUrl = urlData.publicUrl;
+                }
+
+                const postData = {
+                    title: title || null,
+                    content: content.trim(),
+                    category: postType
+                };
+
+                // Sauvegarder l'URL du média si elle existe
+                if (finalMediaUrl) {
+                    postData.media_url = finalMediaUrl;
+                }
+
+                const { data, error } = await window.supabase
+                    .from('posts')
+                    .insert([postData]);
+
+                if (error) throw error;
+
+                modal.classList.add('hidden');
+                document.getElementById('post-form').reset();
+                document.getElementById('file-preview').classList.add('hidden');
+                document.getElementById('image-preview').classList.add('hidden');
+                document.getElementById('video-preview').classList.add('hidden');
+                mediaUrlContainer.style.display = 'none';
+                mediaFileContainer.style.display = 'none';
+                quotePreview.style.display = 'none';
+                loadPosts();
+                alert('Publication créée avec succès!');
+            } catch (error) {
+                console.error('Error creating post:', error);
+                alert('Erreur lors de la création de la publication: ' + error.message);
+            }
+        });
+
+        // Initial load
+        loadPosts();
+        loadTestimonies();
+    </script>
+</body>
+</html>

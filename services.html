@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - ASAS RDC</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <nav class="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-primary">ASAS RDC</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-black">
+                <a href="index.html" class="text-black hover:text-primary dark:hover:text-primary">Accueil</a>
+<a href="about.html" class="text-black hover:text-primary dark:hover:text-primary">À Propos</a>
+                <a href="communaute.html" class="text-black hover:text-primary dark:hover:text-primary">Communauté</a>
+                <a href="services.html" class="text-primary font-medium">Services</a>
+                <a href="contact.html" class="text-black hover:text-primary dark:hover:text-primary">Contact</a>
+                <a href="temoignages.html" class="text-black hover:text-primary dark:hover:text-primary">Témoignages</a>
+                <a href="professionnels.html" class="text-black hover:text-primary dark:hover:text-primary">Professionnels</a>
+</div>
+<button class="md:hidden" id="menu-toggle">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-16">
+            <h1 class="text-4xl font-bold mb-8 text-center">Nos Services</h1>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
+                            <i data-feather="phone" class="text-primary w-8 h-8"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">Ligne d'Assistance 24/7</h2>
+                    </div>
+                    <p class="mb-4">Notre service téléphonique est disponible 24 heures sur 24, 7 jours sur 7, avec des conseillers formés pour fournir un soutien immédiat en cas de crise.</p>
+                    <div class="bg-primary bg-opacity-10 p-4 rounded-lg">
+                        <p class="font-bold text-primary">Numéro d'urgence principal:</p>
+                        <p class="text-2xl">+243 894 718 548</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                            <i data-feather="users" class="text-secondary w-8 h-8"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold">Thérapie de Groupe</h2>
+                    </div>
+                    <p class="mb-4">Des sessions de thérapie de groupe hebdomadaires facilitées par des professionnels de la santé mentale, offrant un espace sûr pour partager et guérir.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                            <span>Groupes organisés par province</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                            <span>Anonymat garanti</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="text-primary mr-2 mt-1 w-4 h-4"></i>
+                            <span>Inscription gratuite</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-8 text-center">Ressources par Province</h2>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <th class="px-4 py-3 text-left">Province</th>
+                                    <th class="px-4 py-3 text-left">Numéro d'Urgence</th>
+                                    <th class="px-4 py-3 text-left">Responsable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-3">Kinshasa</td>
+                                    <td class="px-4 py-3">+243 (0)894 718 548</td>
+                                    <td class="px-4 py-3">Psy Sylvie Vwiranda</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-3">Lubumbashi</td>
+                                    <td class="px-4 py-3">(0)974 951 010</td>
+                                    <td class="px-4 py-3">Mme Prisca Mavakala</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-3">Bukavu</td>
+                                    <td class="px-4 py-3">(0)997 787 114</td>
+                                    <td class="px-4 py-3">Mme Minie Katsshia</td>
+                                </tr>
+
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-3">Kasaï-Orientale</td>
+                                    <td class="px-4 py-3">(0)993 987 993</td>
+                                    <td class="px-4 py-3">Dr Julbert Ciongo</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-3">Goma</td>
+                                    <td class="px-4 py-3">(0)992 208 704</td>
+                                    <td class="px-4 py-3">Dr Edouard Byenda</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary bg-opacity-10 p-8 rounded-lg">
+                <h2 class="text-3xl font-bold mb-6 text-center">Ressources en Ligne</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <i data-feather="book-open" class="text-primary w-10 h-10 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Bibliothèque de Ressources</h3>
+                        <p class="mb-4">Accédez à nos guides, articles et matériels éducatifs sur la prévention du suicide.</p>
+                        <a href="#" class="text-primary font-medium flex items-center">
+                            Explorer <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <i data-feather="video" class="text-primary w-10 h-10 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Ateliers en Ligne</h3>
+                        <p class="mb-4">Participez à nos webinaires et ateliers interactifs sur la santé mentale.</p>
+                        <a href="#" class="text-primary font-medium flex items-center">
+                            Voir le calendrier <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <i data-feather="download" class="text-primary w-10 h-10 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Applications Mobiles</h3>
+                        <p class="mb-4">Téléchargez nos applications pour un soutien continu et des outils d'auto-assistance.</p>
+                        <a href="#" class="text-primary font-medium flex items-center">
+                            Télécharger <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                        <span class="text-xl font-bold text-primary">ASAS RDC</span>
+                    </div>
+                    <p class="mt-2 text-sm">Prévention du Suicide en République Démocratique du Congo</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://web.facebook.com/p/ASAS-RDC-100082903254023/?_rdc=1&_rdr#" class="hover:text-primary"><i data-feather="facebook"></i></a>
+<a href="#" class="hover:text-primary"><i data-feather="twitter"></i></a>
+                    <a href="#" class="hover:text-primary"><i data-feather="instagram"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-sm text-center">
+                <p>© 2025 ASAS RDC. Tous droits réservés.</p>
+</div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.md\\:flex.space-x-6');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-none');
+            navLinks.classList.toggle('shadow-xl');
+            navLinks.classList.toggle('gap-4');
+});
+    </script>
+</body>
+</html>

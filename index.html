@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS RDC - Prévention du Suicide</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#3B82F6',
+                        dark: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-primary">ASAS RDC</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-black dark:text-white">
+                <a href="index.html" class="text-primary font-medium">Accueil</a>
+<a href="about.html" class="text-black hover:text-primary dark:hover:text-primary">À Propos</a>
+                <a href="communaute.html" class="text-black hover:text-primary dark:hover:text-primary">Communauté</a>
+                <a href="services.html" class="text-black hover:text-primary dark:hover:text-primary">Services</a>
+                <a href="contact.html" class="text-black hover:text-primary dark:hover:text-primary">Contact</a>
+                <a href="temoignages.html" class="text-black hover:text-primary dark:hover:text-primary">Témoignages</a>
+                <a href="professionnels.html" class="text-black hover:text-primary dark:hover:text-primary">Professionnels</a>
+</div>
+<div class="md:hidden flex items-center">
+                <button id="menu-toggle" class="text-dark dark:text-white">
+                    <i data-feather="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="menu-toggle" class="text-dark dark:text-white">
+                    <i data-feather="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-[80vh] flex items-center">
+        <div class="container mx-auto px-4 py-16">
+            <div class="max-w-2xl mx-auto text-center fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-dark dark:text-white">
+                    Prévention du Suicide en RDC
+                </h1>
+                <p class="text-xl mb-8 text-gray-600 dark:text-gray-300">
+                    Soutien, écoute et accompagnement psychologique 24h/24 pour ceux qui en ont besoin
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="contact.html" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">
+                        Contactez-nous
+                    </a>
+                    <a href="services.html" class="bg-white text-dark px-6 py-3 rounded-lg font-medium border border-gray-200 hover:bg-gray-50 transition dark:bg-gray-800 dark:text-white dark:border-gray-700">
+                        Nos Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+                    <div class="text-5xl font-bold text-primary mb-2">24/7</div>
+                    <p class="text-gray-600 dark:text-gray-300">Assistance disponible</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+                    <div class="text-5xl font-bold text-primary mb-2">100%</div>
+                    <p class="text-gray-600 dark:text-gray-300">Confidentialité</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+                    <div class="text-5xl font-bold text-primary mb-2">10+</div>
+                    <p class="text-gray-600 dark:text-gray-300">Provinces couvertes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                        <span class="text-xl font-bold text-primary">ASAS RDC</span>
+                    </div>
+                    <p class="text-gray-300">Prévention du Suicide en République Démocratique du Congo</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="hover:text-primary transition">Accueil</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition">À Propos</a></li>
+                        <li><a href="services.html" class="hover:text-primary transition">Services</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Réseaux sociaux</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/p/ASAS-RDC-100082903254023/?_rdc=1&_rdr#" class="hover:text-primary transition" aria-label="Facebook">
+<i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="hover:text-primary transition" aria-label="Twitter">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="hover:text-primary transition" aria-label="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-300">Email: contact@asasrdc.org</p>
+                        <p class="text-sm text-gray-300">Téléphone: +243 894 718 548</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-sm text-center">
+                <p>© 2025 ASAS RDC. Tous droits réservés.</p>
+</div>
+        </div>
+</footer>
+    <!-- Scripts -->
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="database.js"></script>
+    <script src="realtime.js"></script>
+    <script>
+        feather.replace();
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.md\\:flex.space-x-6');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-none');
+            navLinks.classList.toggle('shadow-xl');
+            navLinks.classList.toggle('gap-4');
+});
+
+        // Simple animation for stats
+        document.querySelectorAll('.text-5xl').forEach((el, index) => {
+            anime({
+                targets: el,
+                innerHTML: [0, el.innerHTML.match(/\d+/)[0]],
+                round: 1,
+                easing: 'easeOutExpo',
+                duration: 2000,
+                delay: index * 300
+            });
+        });
+    </script>
+</body>
+</html>

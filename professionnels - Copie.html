@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Professionnels - ASAS RDC</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://your-supabase-url.supabase.co';
+        const supabaseKey = 'your-supabase-key';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <nav class="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-primary">ASAS RDC</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-black">
+                <a href="index.html" class="text-black hover:text-primary dark:hover:text-primary">Accueil</a>
+                <a href="about.html" class="text-black hover:text-primary dark:hover:text-primary">À Propos</a>
+                <a href="communaute.html" class="text-black hover:text-primary dark:hover:text-primary">Communauté</a>
+                <a href="services.html" class="text-black hover:text-primary dark:hover:text-primary">Services</a>
+                <a href="professionnels.html" class="text-primary font-medium">Professionnels</a>
+                <a href="contact.html" class="text-black hover:text-primary dark:hover:text-primary">Contact</a>
+                <a href="temoignages.html" class="text-black hover:text-primary dark:hover:text-primary">Témoignages</a>
+            </div>
+            <button class="md:hidden" id="menu-toggle">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-16">
+            <h1 class="text-4xl font-bold mb-8 text-center">Espace Professionnels de Santé</h1>
+
+            <!-- Authentification Section -->
+            <div id="auth-section" class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg mb-12">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Connexion / Inscription</h2>
+                    <div id="auth-status" class="text-sm text-gray-600 dark:text-gray-400">
+                        Non connecté
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form" class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Connexion</h3>
+                    <form id="professional-login-form" class="space-y-4">
+                        <div>
+                            <label for="login-email" class="block mb-2 font-medium">Email</label>
+                            <input type="email" id="login-email" name="email" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div>
+                            <label for="login-password" class="block mb-2 font-medium">Mot de passe</label>
+                            <input type="password" id="login-password" name="password" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition">
+                            Se connecter
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signup-form">
+                    <h3 class="text-xl font-semibold mb-4">Inscription Professionnel</h3>
+                    <form id="professional-signup-form" class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="signup-first-name" class="block mb-2 font-medium">Prénom</label>
+                                <input type="text" id="signup-first-name" name="first-name" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                            </div>
+                            <div>
+                                <label for="signup-last-name" class="block mb-2 font-medium">Nom</label>
+                                <input type="text" id="signup-last-name" name="last-name" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="signup-email" class="block mb-2 font-medium">Email Professionnel</label>
+                            <input type="email" id="signup-email" name="email" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div>
+                            <label for="signup-password" class="block mb-2 font-medium">Mot de passe</label>
+                            <input type="password" id="signup-password" name="password" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div>
+                            <label for="signup-phone" class="block mb-2 font-medium">Téléphone</label>
+                            <input type="tel" id="signup-phone" name="phone" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div>
+                            <label for="signup-specialty" class="block mb-2 font-medium">Spécialité</label>
+                            <select id="signup-specialty" name="specialty" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                                <option value="">Sélectionnez votre spécialité</option>
+                                <option value="psychiatre">Psychiatre</option>
+                                <option value="psychologue">Psychologue</option>
+                                <option value="infirmier">Infirmier(e) en santé mentale</option>
+                                <option value="generaliste">Médecin généraliste</option>
+                                <option value="educateur">Éducateur spécialisé</option>
+                                <option value="benevole">Bénévole</option>
+                                <option value="administrateur">Administrateur</option>
+                                <option value="formateur">Formateur</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="signup-role" class="block mb-2 font-medium">Rôle dans l'association (optionnel)</label>
+                            <input type="text" id="signup-role" name="role" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: Coordinateur régional, Responsable formation...">
+                        </div>
+                        <div>
+                            <label for="signup-location" class="block mb-2 font-medium">Localisation (Ville/Province)</label>
+                            <input type="text" id="signup-location" name="location" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div>
+                            <label for="signup-availability" class="block mb-2 font-medium">Disponibilités</label>
+                            <textarea id="signup-availability" name="availability" rows="3" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-opacity-90 transition">
+                            S'inscrire en tant que Professionnel
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Professional-only features section -->
+            <div id="professional-features" class="bg-green-50 dark:bg-gray-800 p-8 rounded-lg shadow-lg mb-12" style="display: none;">
+                <h2 class="text-2xl font-bold mb-6 text-green-800 dark:text-green-200">Espace Professionnel</h2>
+                <p class="mb-6 text-green-700 dark:text-green-300">
+                    Bienvenue dans votre espace professionnel ! Vous pouvez maintenant accéder à toutes les fonctionnalités réservées aux professionnels vérifiés.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-3">Ressources Professionnelles</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            Accédez à des guides, protocoles et ressources spécialisées pour la prévention du suicide.
+                        </p>
+                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90">
+                            Accéder aux Ressources
+                        </button>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-3">Réseau de Pairs</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            Connectez-vous avec d'autres professionnels et partagez vos expériences.
+                        </p>
+                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90">
+                            Explorer le Réseau
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary bg-opacity-10 p-8 rounded-lg">
+                <h2 class="text-3xl font-bold mb-6 text-center">Annuaire des Professionnels</h2>
+                
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" id="search-professionals" placeholder="Rechercher par spécialité ou localisation..." 
+                            class="w-full px-4 py-3 border rounded-lg pl-10 dark:bg-gray-700 dark:border-gray-600">
+                        <i data-feather="search" class="absolute left-3 top-3.5 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="professionals-list">
+                    <!-- Professionals will be loaded here -->
+                    <div class="text-center py-8">
+                        <i data-feather="loader" class="animate-spin w-8 h-8 mx-auto text-primary"></i>
+                        <p>Chargement des professionnels...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                        <span class="text-xl font-bold text-primary">ASAS RDC</span>
+                    </div>
+                    <p class="mt-2 text-sm">Prévention du Suicide en République Démocratique du Congo</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://web.facebook.com/p/ASAS-RDC-100082903254023/?_rdc=1&_rdr#" class="hover:text-primary"><i data-feather="facebook"></i></a>
+<a href="#" class="hover:text-primary"><i data-feather="twitter"></i></a>
+                    <a href="#" class="hover:text-primary"><i data-feather="instagram"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-sm text-center">
+                <p>© 2025 ASAS RDC. Tous droits réservés.</p>
+</div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+        feather.replace();
+        
+        // Load professionals
+        async function loadProfessionals() {
+            try {
+                // Check if user is authenticated and is a professional
+                const { data: { user } } = await supabase.auth.getUser();
+                let query = supabase.from('professionals').select('*');
+
+                if (user) {
+                    // If authenticated, show all professionals
+                    query = query.order('created_at', { ascending: false });
+                } else {
+                    // If not authenticated, show limited info or require login
+                    query = query.select('first_name, last_name, specialty, location, role').order('created_at', { ascending: false });
+                }
+
+                const { data: professionals, error } = await query;
+
+                if (error) throw error;
+
+                const container = document.getElementById('professionals-list');
+                container.innerHTML = '';
+
+                if (professionals.length === 0) {
+                    container.innerHTML = '<p class="text-center py-8 col-span-3">Aucun professionnel inscrit pour le moment.</p>';
+                    return;
+                }
+
+                professionals.forEach(professional => {
+                    const professionalCard = document.createElement('div');
+                    professionalCard.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+                    professionalCard.innerHTML = `
+                        <div class="flex items-start mb-4">
+                            <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
+                                <i data-feather="user" class="text-primary w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-bold">Dr. ${professional.first_name} ${professional.last_name}</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        <i data-feather="shield" class="w-3 h-3 mr-1"></i>
+                                        Professionnel Vérifié
+                                    </span>
+                                    ${professional.role ? `<span class="text-xs bg-secondary text-white px-2 py-1 rounded-full">${professional.role}</span>` : ''}
+                                </div>
+                                <p class="text-primary capitalize">${professional.specialty}</p>
+ <p class="text-sm text-gray-500 dark:text-gray-400">${professional.location}</p>
+                            </div>
+                        </div>
+                        ${user ? `
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center">
+                                <i data-feather="mail" class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                                <span>${professional.email || 'Non disponible'}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-feather="phone" class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                                <span>${professional.phone || 'Non disponible'}</span>
+                            </div>
+                            ${professional.availability ? `
+                            <div>
+                                <p class="font-medium mb-1">Disponibilités:</p>
+                                <p>${professional.availability}</p>
+                            </div>` : ''}
+                        </div>
+                        ` : `
+                        <div class="text-center py-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Connectez-vous pour voir les coordonnées complètes</p>
+                            <button onclick="document.getElementById('login-form').scrollIntoView()" class="text-primary hover:underline text-sm">
+                                Se connecter
+                            </button>
+                        </div>
+                        `}
+                    `;
+                    container.appendChild(professionalCard);
+                });
+
+                feather.replace();
+            } catch (error) {
+                console.error('Error loading professionals:', error);
+                document.getElementById('professionals-list').innerHTML = `
+                    <div class="text-center py-8 col-span-3 text-red-500">
+                        <i data-feather="alert-circle" class="w-8 h-8 mx-auto"></i>
+                        <p>Erreur de chargement des professionnels. Veuillez réessayer.</p>
+                    </div>
+                `;
+                feather.replace();
+            }
+        }
+
+        // Submit professional form (legacy - now using signup)
+        // This form is now hidden and replaced by signup form
+
+        // Search functionality
+        document.getElementById('search-professionals').addEventListener('input', async function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            try {
+                const { data: professionals, error } = await supabase
+                    .from('professionals')
+                    .select('*');
+                
+                if (error) throw error;
+                
+                const filtered = professionals.filter(p => 
+                    p.specialty.toLowerCase().includes(searchTerm) || 
+                    p.location.toLowerCase().includes(searchTerm) ||
+                    `${p.first_name} ${p.last_name}`.toLowerCase().includes(searchTerm)
+                );
+                
+                const container = document.getElementById('professionals-list');
+                container.innerHTML = '';
+                
+                if (filtered.length === 0) {
+                    container.innerHTML = '<p class="text-center py-8 col-span-3">Aucun résultat trouvé.</p>';
+                    return;
+                }
+                
+                filtered.forEach(professional => {
+                    const professionalCard = document.createElement('div');
+                    professionalCard.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+                    professionalCard.innerHTML = `
+                        <div class="flex items-start mb-4">
+                            <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
+                                <i data-feather="user" class="text-primary w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-bold">Dr. ${professional.first_name} ${professional.last_name}</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        <i data-feather="shield" class="w-3 h-3 mr-1"></i>
+                                        Professionnel Vérifié
+                                    </span>
+                                    ${professional.role ? `<span class="text-xs bg-secondary text-white px-2 py-1 rounded-full">${professional.role}</span>` : ''}
+                                </div>
+                                <p class="text-primary capitalize">${professional.specialty}</p>
+ <p class="text-sm text-gray-500 dark:text-gray-400">${professional.location}</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center">
+                                <i data-feather="mail" class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                                <span>${professional.email}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-feather="phone" class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                                <span>${professional.phone}</span>
+                            </div>
+                            ${professional.availability ? `
+                            <div>
+                                <p class="font-medium mb-1">Disponibilités:</p>
+                                <p>${professional.availability}</p>
+                            </div>` : ''}
+                        </div>
+                    `;
+                    container.appendChild(professionalCard);
+                });
+                
+                feather.replace();
+            } catch (error) {
+                console.error('Error searching professionals:', error);
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.md\\:flex.space-x-6');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-none');
+            navLinks.classList.toggle('shadow-xl');
+            navLinks.classList.toggle('gap-4');
+        });
+
+        // Handle professional signup
+        document.getElementById('professional-signup-form').addEventListener('submit', handleProfessionalSignUp);
+
+        // Handle professional login
+        document.getElementById('professional-login-form').addEventListener('submit', handleProfessionalSignIn);
+
+        // Check authentication state on page load
+        supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === 'SIGNED_IN') {
+                await updateAuthUI(session.user);
+                loadProfessionals(); // Reload with authenticated view
+            } else if (event === 'SIGNED_OUT') {
+                await updateAuthUI(null);
+                loadProfessionals(); // Reload with public view
+            }
+        });
+
+        // Initial auth check
+        (async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            await updateAuthUI(user);
+        })();
+
+        // Initial load
+        loadProfessionals();
+    </script>
+</body>
+</html>

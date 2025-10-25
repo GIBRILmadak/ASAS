@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Témoignages - ASAS RDC</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <nav class="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-primary">ASAS RDC</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-black dark:text-white">
+                <a href="index.html" class="text-black hover:text-primary dark:hover:text-primary">Accueil</a>
+                <a href="about.html" class="text-black hover:text-primary dark:hover:text-primary">À Propos</a>
+                <a href="communaute.html" class="text-black hover:text-primary dark:hover:text-primary">Communauté</a>
+                <a href="services.html" class="text-black hover:text-primary dark:hover:text-primary">Services</a>
+                <a href="temoignages.html" class="text-primary font-medium">Témoignages</a>
+                <a href="contact.html" class="text-black hover:text-primary dark:hover:text-primary">Contact</a>
+                <a href="professionnels.html" class="text-black hover:text-primary dark:hover:text-primary">Professionnels</a>
+</div>
+            <button class="md:hidden" id="menu-toggle">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold mb-6 text-center">Espace de Témoignages</h1>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold mb-4">Partagez votre histoire</h2>
+                <p class="mb-4">Cet espace est dédié au partage anonyme de vos expériences. Votre témoignage peut aider quelqu'un qui traverse une situation similaire.</p>
+                <button id="new-testimony-btn" class="bg-primary text-white px-4 py-2 rounded-lg flex items-center">
+                    <i data-feather="plus" class="mr-2 w-4 h-4"></i>
+                    Nouveau Témoignage
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-primary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">100%</p>
+                    <p>Anonymat</p>
+                </div>
+                <div class="bg-secondary text-white p-6 rounded-lg text-center">
+                    <p class="text-3xl font-bold">500+</p>
+                    <p>Témoignages</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">Témoignages Réçents</h2>
+            <div class="space-y-4" id="testimonies-list">
+                <!-- Témoignages will be loaded here -->
+                <div class="text-center py-8">
+                    <i data-feather="loader" class="animate-spin w-8 h-8 mx-auto text-primary"></i>
+                    <p>Chargement des témoignages...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- New Testimony Modal -->
+    <div id="testimony-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Partager un Témoignage</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form id="testimony-form">
+                <div class="mb-4">
+                    <label for="testimony-title" class="block mb-2 font-medium">Titre (optionnel)</label>
+                    <input type="text" id="testimony-title" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" placeholder="Donnez un titre à votre témoignage">
+                </div>
+                <div class="mb-4">
+                    <label for="testimony-content" class="block mb-2 font-medium">Votre Témoignage</label>
+                    <textarea id="testimony-content" rows="8" class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required placeholder="Partagez votre histoire ici..."></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-testimony" class="px-4 py-2 border rounded-lg">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg">Publier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i data-feather="life-buoy" class="text-primary w-8 h-8"></i>
+                        <span class="text-xl font-bold text-primary">ASAS RDC</span>
+                    </div>
+                    <p class="mt-2 text-sm">Prévention du Suicide en République Démocratique du Congo</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://web.facebook.com/p/ASAS-RDC-100082903254023/?_rdc=1&_rdr#" class="hover:text-primary"><i data-feather="facebook"></i></a>
+<a href="#" class="hover:text-primary"><i data-feather="twitter"></i></a>
+                    <a href="#" class="hover:text-primary"><i data-feather="instagram"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-sm text-center">
+                <p>© 2025 ASAS RDC. Tous droits réservés.</p>
+</div>
+        </div>
+    </footer>
+
+    <!-- Scripts Supabase -->
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="database.js"></script>
+    <script src="realtime.js"></script>
+    <script>
+        feather.replace();
+        
+        // Load testimonies
+        async function loadTestimonies() {
+            try {
+                const { data: testimonies, error } = await window.supabase
+                    .from('testimonies')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                const container = document.getElementById('testimonies-list');
+                container.innerHTML = '';
+
+                if (testimonies.length === 0) {
+                    container.innerHTML = '<p class="text-center py-8">Aucun témoignage pour le moment. Soyez le premier à partager!</p>';
+                    return;
+                }
+
+                testimonies.forEach(testimony => {
+                    const testimonyElement = document.createElement('div');
+                    testimonyElement.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md';
+                    testimonyElement.innerHTML = `
+                        <div class="mb-4">
+                            <h3 class="text-lg font-bold">${testimony.title || 'Témoignage anonyme'}</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Publié le ${new Date(testimony.created_at).toLocaleDateString()}
+                            </p>
+                        </div>
+                        <p class="mb-4">${testimony.content}</p>
+                        <div class="flex justify-between items-center">
+                            <button class="text-primary flex items-center support-btn" data-id="${testimony.id}">
+                                <i data-feather="heart" class="mr-2 w-4 h-4"></i>
+                                <span>${testimony.support_count || 0} soutiens</span>
+                            </button>
+                            <button class="flex items-center text-primary comment-btn" data-id="${testimony.id}">
+                                <i data-feather="message-square" class="mr-2 w-4 h-4"></i>
+                                Commenter
+                            </button>
+                        </div>
+                        <div class="mt-4 hidden comments-section" id="comments-${testimony.id}">
+                            <!-- Comments will be loaded here -->
+                        </div>
+                    `;
+                    container.appendChild(testimonyElement);
+                });
+
+                feather.replace();
+                setupEventListeners();
+            } catch (error) {
+                console.error('Error loading testimonies:', error);
+                document.getElementById('testimonies-list').innerHTML = `
+                    <div class="text-center py-8 text-red-500">
+                        <i data-feather="alert-circle" class="w-8 h-8 mx-auto"></i>
+                        <p>Erreur de chargement des témoignages. Veuillez réessayer.</p>
+                    </div>
+                `;
+                feather.replace();
+            }
+        }
+
+        // Modal functionality
+        const modal = document.getElementById('testimony-modal');
+        const newTestimonyBtn = document.getElementById('new-testimony-btn');
+        const closeModal = document.getElementById('close-modal');
+        const cancelTestimony = document.getElementById('cancel-testimony');
+
+        newTestimonyBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+        cancelTestimony.addEventListener('click', () => modal.classList.add('hidden'));
+
+        // Submit new testimony
+        document.getElementById('testimony-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('testimony-title').value;
+            const content = document.getElementById('testimony-content').value;
+
+            if (!content.trim()) {
+                alert('Veuillez saisir le contenu de votre témoignage.');
+                return;
+            }
+
+            try {
+                const { data, error } = await window.supabase
+                    .from('testimonies')
+                    .insert([
+                        {
+                            title: title || null,
+                            content: content.trim(),
+                            is_anonymous: true,
+                            support_count: 0
+                        }
+                    ]);
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    alert('Erreur Supabase: ' + error.message);
+                    throw error;
+                }
+
+                modal.classList.add('hidden');
+                document.getElementById('testimony-form').reset();
+                loadTestimonies();
+                alert('Témoignage publié avec succès!');
+            } catch (error) {
+                console.error('Error creating testimony:', error);
+                alert('Erreur lors de la publication du témoignage: ' + error.message);
+            }
+        });
+
+        // Support and comment functionality
+        function setupEventListeners() {
+            document.querySelectorAll('.support-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const testimonyId = this.getAttribute('data-id');
+                    try {
+                        // Increment support count in database
+                        const { data, error } = await window.supabase
+                            .from('testimonies')
+                            .update({ support_count: (this.textContent.match(/\d+/)[0] || 0) + 1 })
+                            .eq('id', testimonyId);
+                        
+                        if (error) throw error;
+                        
+                        // Update UI
+                        this.innerHTML = `<i data-feather="heart" class="mr-2 w-4 h-4"></i>
+                            <span>${parseInt(this.textContent.match(/\d+/)[0] || 0) + 1} soutiens</span>`;
+                        feather.replace();
+                    } catch (error) {
+                        console.error('Error supporting testimony:', error);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.comment-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const testimonyId = this.getAttribute('data-id');
+                    const commentsSection = document.getElementById(`comments-${testimonyId}`);
+                    
+                    if (commentsSection.classList.contains('hidden')) {
+                        // Load comments
+                        try {
+                            const { data: comments, error } = await window.supabase
+                                .from('comments')
+                                .select('*')
+                                .eq('testimony_id', testimonyId)
+                                .order('created_at', { ascending: false });
+                            
+                            if (error) throw error;
+                            
+                            commentsSection.innerHTML = `
+                                <div class="mb-4">
+                                    <textarea class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 mb-2" placeholder="Ajouter un commentaire..." id="comment-input-${testimonyId}"></textarea>
+                                    <button class="bg-primary text-white px-3 py-1 rounded text-sm comment-submit" data-id="${testimonyId}">Envoyer</button>
+                                </div>
+                                <div class="space-y-3" id="comments-list-${testimonyId}">
+                                    ${comments.length === 0 ? '<p class="text-sm text-gray-500 dark:text-gray-400">Aucun commentaire pour le moment.</p>' : 
+                                    comments.map(comment => `
+                                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                                            <p class="text-sm">${comment.content}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                ${new Date(comment.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+                            
+                            commentsSection.classList.remove('hidden');
+                            feather.replace();
+                            
+                            // Add event listener for new comment
+                            document.querySelector(`.comment-submit[data-id="${testimonyId}"]`).addEventListener('click', async function() {
+                                const content = document.getElementById(`comment-input-${testimonyId}`).value;
+                                if (!content) return;
+                                
+                                try {
+                                    const { data, error } = await window.supabase
+                                        .from('comments')
+                                        .insert([
+                                            {
+                                                testimony_id: testimonyId,
+                                                content,
+                                                is_anonymous: true
+                                            }
+                                        ]);
+                                    
+                                    if (error) throw error;
+                                    
+                                    // Reload comments
+                                    const commentsList = document.getElementById(`comments-list-${testimonyId}`);
+                                    const newComment = document.createElement('div');
+                                    newComment.className = 'bg-gray-100 dark:bg-gray-700 p-3 rounded-lg';
+                                    newComment.innerHTML = `
+                                        <p class="text-sm">${content}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            ${new Date().toLocaleDateString()}
+                                        </p>
+                                    `;
+                                    commentsList.prepend(newComment);
+                                    document.getElementById(`comment-input-${testimonyId}`).value = '';
+                                } catch (error) {
+                                    console.error('Error adding comment:', error);
+                                }
+                            });
+                        } catch (error) {
+                            console.error('Error loading comments:', error);
+                        }
+                    } else {
+                        commentsSection.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.querySelector('.md\\:flex.space-x-6');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-none');
+            navLinks.classList.toggle('shadow-xl');
+            navLinks.classList.toggle('gap-4');
+        });
+
+        // Initial load
+        loadTestimonies();
+    </script>
+</body>
+</html>
